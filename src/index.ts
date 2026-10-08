@@ -69,9 +69,10 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        let avatarUrl = user.avatar_url || "";
-        if (avatarUrl.includes("minio:9000")) {
-            avatarUrl = avatarUrl.replace("http://minio:9000", process.env.S3_PUBLIC_ENDPOINT || "https://minio-s3.astc.joyit.io");
+let avatarUrl = user.avatar_url || "";
+        const s3Public = process.env.S3_PUBLIC_ENDPOINT || "https://minio-s3.astc.joyit.io";
+        if (avatarUrl.includes("http://minio:9000") || avatarUrl.includes("astc.local")) {
+            avatarUrl = avatarUrl.replace("http://minio:9000", s3Public).replace("https://minio-s3.astc.local", s3Public).replace("http://minio-s3.astc.local", s3Public);
         }
 
         const tJwtStart = Date.now();
