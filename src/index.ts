@@ -23,7 +23,13 @@ app.use(cors({
         "https://astc-backoffice.joyit.io",
         "https://astc-project.joyit.io",
         "https://minio.astc.joyit.io",
-        "https://minio-s3.astc.joyit.io"
+        "https://minio-s3.astc.joyit.io",
+        "https://astc.joyit.io:8443",
+        "https://astc-api.joyit.io:8443",
+        "https://astc-auth.joyit.io:8443",
+        "https://attendance.joyit.io:8443",
+        "https://astc-backoffice.joyit.io:8443",
+        "https://astc-project.joyit.io:8443"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
