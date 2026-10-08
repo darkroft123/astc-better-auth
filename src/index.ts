@@ -1,4 +1,4 @@
-﻿import dns from "node:dns";
+import dns from "node:dns";
 dns.setDefaultResultOrder("ipv4first");
 import "dotenv/config";
 import jwt from "jsonwebtoken";
@@ -14,23 +14,7 @@ import { authMiddleware } from "./middleware/authMiddleware.js";
 const app = express();
 
 app.use(cors({
-    origin: [
-        "https://astc.joyit.io",
-        "https://astc-api.joyit.io",
-        "https://astc-auth.joyit.io",
-        "https://auth-api.astc.joyit.io",
-        "https://attendance.joyit.io",
-        "https://astc-backoffice.joyit.io",
-        "https://astc-project.joyit.io",
-        "https://minio.astc.joyit.io",
-        "https://minio-s3.astc.joyit.io",
-        "https://astc.joyit.io:8443",
-        "https://astc-api.joyit.io:8443",
-        "https://astc-auth.joyit.io:8443",
-        "https://attendance.joyit.io:8443",
-        "https://astc-backoffice.joyit.io:8443",
-        "https://astc-project.joyit.io:8443"
-    ],
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -82,7 +66,7 @@ let avatarUrl = user.avatar_url || "";
         }
 
         const tJwtStart = Date.now();
-        // ðŸ”¥ JWT RS256 (MISMO PAYLOAD, SOLO CAMBIA FIRMA)
+        // 🔥 JWT RS256 (MISMO PAYLOAD, SOLO CAMBIA FIRMA)
         const token = jwt.sign(
             {
                 sub: user.id,
@@ -140,13 +124,14 @@ app.get("/me", authMiddleware, (req, res) => {
 
 // Warm up the database connection pool on startup to eliminate cold starts
 db.$connect()
-    .then(() => console.log("âš¡ [AUTH] Prisma Client successfully connected to Database"))
-    .catch((err) => console.error("âŒ [AUTH] Prisma connection error during startup warmup:", err));
+    .then(() => console.log("⚡ [AUTH] Prisma Client successfully connected to Database"))
+    .catch((err) => console.error("❌ [AUTH] Prisma connection error during startup warmup:", err));
 
 const PORT = process.env.PORT || 3010;
 
 app.listen(PORT, () => {
     console.log(`Better Auth running on ${PORT}`);
 });
+
 
 
